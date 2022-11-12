@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">transpo-2</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title">title</string>
+    <string name="supporting_text">supporting text</string>
+    <string name="action">action</string>
+    <string name="label">From</string>
+    <string name="Tolabel">To</string>
+</resources>
