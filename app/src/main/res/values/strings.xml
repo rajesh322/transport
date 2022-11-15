@@ -9,4 +9,5 @@
     <string name="button_1">Tier 1</string>
     <string name="button_2">Tier 2</string>
     <string name="button_3">Tier 3</string>
+    <string name="elevated_button">start</string>
 </resources>

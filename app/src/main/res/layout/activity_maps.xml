@@ -104,5 +104,15 @@
             android:text="@string/button_3"
             />
     </com.google.android.material.button.MaterialButtonToggleGroup>
+    <Button
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:id="@+id/elevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/elevated_button"
+        android:layout_marginTop="160dp"
+        android:layout_marginStart="300dp"
+        android:textSize="17sp"
+        tools:ignore="SmallSp" />
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
