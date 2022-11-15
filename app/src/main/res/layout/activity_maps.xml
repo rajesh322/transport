@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="#A3A2A2"
     tools:context=".MapsActivity">
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
     android:id="@+id/map"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
@@ -18,28 +18,17 @@
     app:cameraTargetLat="-33.796923"
     app:cameraTargetLng="150.922433"
     app:cameraTilt="30"
-    app:cameraZoom="13"
+    app:cameraZoom="16"
     app:mapType="normal"
     app:uiCompass="false"
     app:uiRotateGestures="true"
-    app:uiScrollGestures="false"
     app:uiTiltGestures="true"
     app:uiZoomControls="false"
     app:uiZoomGestures="true"
     tools:layout_editor_absoluteX="2dp"
     tools:layout_editor_absoluteY="253dp"
-    tools:context=".MapsActivity" />
-    <Button
-        android:id="@+id/btn_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get My Current Location"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintStart_toStartOf="parent" />
+    tools:context=".MapsActivity"
+        tools:ignore="FragmentTagUsage" />
     <FrameLayout
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
@@ -72,7 +61,7 @@
         android:id="@+id/toTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="90dp"
         android:hint="@string/Tolabel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,5 +76,33 @@
             android:layout_marginHorizontal="1dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginStart="10dp">
+        <Button
+            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_1"
+            />
+        <Button
+            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_2"
+            />
+        <Button
+            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_3"
+            />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

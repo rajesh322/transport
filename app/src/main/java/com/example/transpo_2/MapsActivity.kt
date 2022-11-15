@@ -3,9 +3,12 @@ package com.example.transpo_2
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.transpo_2.databinding.ActivityMapsBinding
@@ -15,6 +18,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.Places
+import com.google.android.material.textfield.TextInputLayout
+import java.util.*
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -30,6 +36,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val locationProvider = LocationManager.NETWORK_PROVIDER
         // I suppressed the missing-permission warning because this wouldn't be executed in my
         // case without location services being enabled
+
+        val ai: ApplicationInfo = applicationContext.packageManager.getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
+        val value = ai.metaData["com.google.android.geo.API_KEY"]
+        val apiKey = value.toString()
+
+        // Initializing the Places API
+        // with the help of our API_KEY
+        if (!Places.isInitialized()) {
+            Places.initialize(applicationContext, apiKey)
+        }
 
         @SuppressLint("MissingPermission") val lastKnownLocation =
             locationManager.getLastKnownLocation(locationProvider)
@@ -62,6 +78,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             return
         }
     }
+    private fun getCompleteAddressString(LATITUDE: Double, LONGITUDE: Double): String {
+        var strAdd = ""
+        val geocoder = Geocoder(this, Locale.getDefault())
+        try {
+            val addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1)
+            if (addresses != null) {
+                val returnedAddress = addresses[0]
+                val strReturnedAddress = java.lang.StringBuilder("")
+                for (i in 0..returnedAddress.maxAddressLineIndex) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n")
+                }
+                strAdd = strReturnedAddress.toString()
+                Log.w("My Current loction address", strReturnedAddress.toString())
+            } else {
+                Log.w("My Current loction address", "No Address returned!")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.w("My Current loction address", "Canont get Address!")
+        }
+        return strAdd
+    }
 
     /**
      * Manipulates the map once available.
@@ -75,9 +113,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        val stradd = getCompleteAddressString(userLat,userLong)
+        val parent = findViewById<TextInputLayout>(R.id.fromTextField)
+        parent.editText?.setText(stradd)
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(userLat, userLong)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val userLoc = LatLng(userLat, userLong)
+        mMap.addMarker(MarkerOptions().position(userLoc).title("You are Here"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLoc))
     }
 }

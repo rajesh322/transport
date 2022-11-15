@@ -6,4 +6,7 @@
     <string name="action">action</string>
     <string name="label">From</string>
     <string name="Tolabel">To</string>
+    <string name="button_1">Tier 1</string>
+    <string name="button_2">Tier 2</string>
+    <string name="button_3">Tier 3</string>
 </resources>
